@@ -3,6 +3,7 @@
 #include <IRremoteESP8266.h>
 #include <IRrecv.h>
 #include <IRutils.h>
+#include "functions.h"
 #include "menu.h"
 extern Adafruit_SH1106G dis;
 extern decode_results results;
@@ -37,10 +38,10 @@ void Menu::render() {
 
   for (int i = scrollOffset; i < std::min(scrollOffset + maxVisibleItems, (int)sections.size()); ++i) {
     int y = 21 + ((i - scrollOffset) * 14);
-    int16_t x1, y1;
-    uint16_t textWidth, textHeight;
-    dis.getTextBounds(sections[i].substr(0, maxTextWidth).c_str(), 0, 0, &x1, &y1, &textWidth, &textHeight);
-    uint16_t center = (128 - textWidth) / 2;
+    // int16_t x1, y1;
+    // uint16_t textWidth, textHeight;
+    // dis.getTextBounds(sections[i].substr(0, maxTextWidth).c_str(), 0, 0, &x1, &y1, &textWidth, &textHeight);
+    uint16_t center = getCenter(sections[i].substr(0, maxTextWidth).c_str());
     if (i == selectedIndex) {
       dis.fillRoundRect(10, y - 2, 108, 12, 8, SH110X_WHITE);
       dis.setCursor(center, y);
